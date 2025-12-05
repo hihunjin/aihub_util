@@ -14,6 +14,14 @@ Place a file named `.env` in the same directory with a single line like:
 APIKEY="YOUR-AIHUB-API-KEY-HERE"
 ```
 
+Where to get an API key
+-----------------------
+To obtain your AIHub API key visit:
+
+https://www.aihub.or.kr/devsport/apishell/list.do
+
+Sign in (or sign up) and request or create an API key for the Aihub API shells — paste that key into your local `.env` as shown above.
+
 install_aihubshell.sh
 ---------------------
 Convenience script included to fetch and install `aihubshell` into `/usr/bin` (requires sudo).
