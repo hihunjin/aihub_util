@@ -65,7 +65,7 @@ bash download_loop.sh -d 71811
 ```bash
 bash download_loop.sh -d 71811 -f "397241,397242"
 # or
-bash run_loop.sh -d 71811 -f "397241 397242"
+bash download_loop.sh -d 71811 -f "397241 397242"
 ```
 
 Important notes about `download_loop.sh`

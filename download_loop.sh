@@ -112,4 +112,5 @@ for id in "${FILE_IDS[@]}"; do
   aihubshell -mode d -datasetkey "${DATASET}" -filekey "${id}" -aihubapikey "${APIKEY}"
 done
 
+cd ..
 echo "✅  모든 파일 다운로드 · 추출 완료"
