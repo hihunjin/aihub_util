@@ -34,6 +34,19 @@ Quick helper for searching the list command output. Example:
 sh get_datasetkey.sh 오피스
 ```
 
+Listing the dataset tree
+------------------------
+If you only want to inspect the raw listing (the tree of files and IDs) produced by
+`aihubshell -mode l -datasetkey <DATASET>`, use:
+
+```bash
+# print the listing and exit
+bash download_loop.sh -d 71811 --list-only
+# (alias)
+bash download_loop.sh -d 71811 -L
+
+```
+
 download_loop.sh usage
 ------------------
 Main script to download dataset files from AIHub. The script expects a dataset key and will either
@@ -52,21 +65,7 @@ bash download_loop.sh -d 71811
 ```bash
 bash download_loop.sh -d 71811 -f "397241,397242"
 # or
-
-Listing the dataset tree
-------------------------
-If you only want to inspect the raw listing (the tree of files and IDs) produced by
-`aihubshell -mode l -datasetkey <DATASET>`, use:
-
-```bash
-# print the listing and exit
-bash download_loop.sh -d 71811 --list-only
-# (alias)
-bash download_loop.sh -d 71811 -L
-
-```
-
-bash download_loop.sh -d 71811 -f "397241 397242"
+bash run_loop.sh -d 71811 -f "397241 397242"
 ```
 
 Important notes about `download_loop.sh`
