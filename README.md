@@ -34,7 +34,7 @@ Quick helper for searching the list command output. Example:
 sh get_datasetkey.sh 오피스
 ```
 
-run_loop.sh usage
+download_loop.sh usage
 ------------------
 Main script to download dataset files from AIHub. The script expects a dataset key and will either
 download the listed file IDs or the full dataset if no IDs are provided.
@@ -44,18 +44,32 @@ Basic examples:
 - Download all files in dataset 71811 (the script uses `aihubshell -mode l` to list file IDs and downloads each numeric ID):
 
 ```bash
-bash run_loop.sh -d 71811
+bash download_loop.sh -d 71811
 ```
 
 - Download only specific file IDs (comma or space separated):
 
 ```bash
-bash run_loop.sh -d 71811 -f "397241,397242"
+bash download_loop.sh -d 71811 -f "397241,397242"
 # or
-bash run_loop.sh -d 71811 -f "397241 397242"
+
+Listing the dataset tree
+------------------------
+If you only want to inspect the raw listing (the tree of files and IDs) produced by
+`aihubshell -mode l -datasetkey <DATASET>`, use:
+
+```bash
+# print the listing and exit
+bash download_loop.sh -d 71811 --list-only
+# (alias)
+bash download_loop.sh -d 71811 -L
+
 ```
 
-Important notes about `run_loop.sh`
+bash download_loop.sh -d 71811 -f "397241 397242"
+```
+
+Important notes about `download_loop.sh`
 - The script reads APIKEY from `.env` and will exit with an error if `.env` is missing (place your APIKEY there).
 - Use `-f` / `--file-ids` to limit downloads to specific file IDs. If omitted the script lists all file IDs.
 - The script traps Ctrl+C (SIGINT/SIGTERM) and will stop cleanly between downloads.

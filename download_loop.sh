@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 # set -euo pipefail
 
-# Load APIKEY from .env file
-if [[ -f .env ]]; then
-  export $(grep -v '^#' .env | xargs)
-else
-  echo "[ERROR] .env file not found"
-  exit 1
-fi
 
 DATASET=""                  # 다운로드할 datasetkey (required)
 
@@ -25,6 +18,7 @@ Optional:
                           If omitted the script will list all files in the dataset
                           using `aihubshell -mode l` and download every numeric file ID
                           it finds.
+  --list-only             Print the `aihubshell -mode l` listing (tree) and exit
   -h, --help              Show this help message
 
 Notes:
@@ -46,6 +40,7 @@ fi
 
 
 FILE_IDS_ARG=""    # optional: comma or space-separated file ids passed by user
+LIST_ONLY=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -53,6 +48,8 @@ while [[ $# -gt 0 ]]; do
       DATASET="$2"; shift 2;;
     -f|--file-ids)
       FILE_IDS_ARG="$2"; shift 2;;
+    --list-only|-L)
+      LIST_ONLY=1; shift;;
     -h|--help)
       usage; exit 0;;
     *)
@@ -69,6 +66,11 @@ STOPPED=0
 trap 'STOPPED=1; echo; echo "[INFO] Interrupted by user — stopping..."; ' INT TERM
 
 aihubshell -mode l -datasetkey "${DATASET}"
+if [[ "$LIST_ONLY" -eq 1 ]]; then
+  exit 0
+fi
+
+
 # If file IDs were passed with -f/--file-ids, use them. Accept comma or space separated lists.
 if [[ -n "$FILE_IDS_ARG" ]]; then
   # normalize commas to spaces then split into array
@@ -86,6 +88,14 @@ fi
 
 # echo file ids
 echo "[INFO] 다운로드할 파일 ID 목록: ${FILE_IDS[*]}"
+
+# Load APIKEY from .env file
+if [[ -f .env ]]; then
+  export $(grep -v '^#' .env | xargs)
+else
+  echo "[ERROR] .env file not found"
+  exit 1
+fi
 
 ############################################
 # 2) 각 fileSn 별 개별 다운로드
